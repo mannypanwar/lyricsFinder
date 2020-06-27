@@ -17,7 +17,7 @@ export default function Search() {
         setState({ track_list: track_list, heading: "Search Results" });
       })
       .catch((err) => console.log(err));
-  }, [trackTitle]);
+  }, [setState, trackTitle]);
 
   function findTrack(e) {
     e.preventDefault();
