@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Context = React.createContext();
+export const Context = React.createContext();
 
 export default function Provider(props) {
   let initial_state = {
@@ -11,6 +11,7 @@ export default function Provider(props) {
 
   const [state, setState] = useState(initial_state);
 
+  // https://cors-anywhere.herokuapp.com/
   useEffect(() => {
     axios
       .get(
@@ -26,7 +27,11 @@ export default function Provider(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  return <Context.Provider value={state}>{props.children}</Context.Provider>;
+  return (
+    <Context.Provider value={[state, setState]}>
+      {props.children}
+    </Context.Provider>
+  );
 }
 
 export const Consumer = Context.Consumer;
